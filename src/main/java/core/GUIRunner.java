@@ -26,9 +26,11 @@ public class GUIRunner extends JFrame {
     private static String[] choices;
     private static String currentCurrency;
     private static String currentType;
+    /*
     private static double currentInit;
     private static double currentThreshold;
     private static double currentSafety;
+    */
      
     public GUIRunner(String name) {
         super(name);
@@ -48,17 +50,21 @@ public class GUIRunner extends JFrame {
 	    
 	    currentCurrency = choices[0];
 	    currentType = userPref.getJSONObject(choices[0]).getString("type");
+	    /*
 	    currentInit = userPref.getJSONObject(choices[0]).getDouble("initial");
 	    currentThreshold = userPref.getJSONObject(choices[0]).getDouble("threshold");
 	    currentSafety = userPref.getJSONObject(choices[0]).getDouble("ditch");
+	    */
     }
     
     public void updateWithCurrency(String code) {
     	currentCurrency = code;
 	    currentType = userPref.getJSONObject(code).getString("type");
+	    /*
 	    currentInit = userPref.getJSONObject(code).getDouble("initial");
 	    currentThreshold = userPref.getJSONObject(code).getDouble("threshold");
 	    currentSafety = userPref.getJSONObject(code).getDouble("ditch");
+	    */
     }
      
     public void addComponentsToPane(final Container pane) {
@@ -68,27 +74,33 @@ public class GUIRunner extends JFrame {
         compsToExperiment.setLayout(experimentLayout);
         JPanel controls = new JPanel();
         controls.setLayout(new GridLayout(0,2));
-        compsToExperiment.setPreferredSize(new Dimension(800, 150));
+        compsToExperiment.setPreferredSize(new Dimension(600, 100));
         
         final JComboBox<String> currencySelect = new JComboBox<String>(choices);
         final JComboBox<String> typeSelect = new JComboBox<String>(TYPES);
+        /*
         final JTextField initialSelect = new JTextField(12);
         final JTextField threshSelect = new JTextField(12);
         final JTextField safetySelect = new JTextField(12);
+        */
         
         DecimalFormat df = new DecimalFormat("###0.00");
-        JLabel[] currentData = new JLabel[5];
+        JLabel[] currentData = new JLabel[2];
         currentData[0] = new JLabel(currentCurrency);
         currentData[1] = new JLabel(currentType);
+        /*
         currentData[2] = new JLabel("$" + df.format(currentInit));
         currentData[3] = new JLabel("$" + df.format(currentThreshold));
         currentData[4] = new JLabel("$" + df.format(currentSafety));
+        */
         
         
-        JLabel[] staticText = {new JLabel("Select Currency"), new JLabel("Select Investment Type"),
+        JLabel[] staticText = {new JLabel("Select Currency"), new JLabel("Select Investment Type") }; 
+        /*,
         		new JLabel("Set Desired Investment Value"), new JLabel("Set Amount Above Initial In Which to Scalp"),
         		new JLabel("Set Safety Net To Instantly Sell")
         };
+        */
         
         for(int i = 0; i < currentData.length; i++) {
         	currentData[i].setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -97,9 +109,11 @@ public class GUIRunner extends JFrame {
         
         currencySelect.setFont(new Font("Calibri", Font.PLAIN, 14));
         typeSelect.setFont(new Font("Calibri", Font.PLAIN, 14));
+        /*
         initialSelect.setFont(new Font("Calibri", Font.PLAIN, 14));
         threshSelect.setFont(new Font("Calibri", Font.PLAIN, 14));
         safetySelect.setFont(new Font("Calibri", Font.PLAIN, 14));
+        */
         
          
         //Add buttons to experiment with Grid Layout
@@ -111,6 +125,7 @@ public class GUIRunner extends JFrame {
         compsToExperiment.add(typeSelect);
         compsToExperiment.add(currentData[1]);
         
+        /*
         compsToExperiment.add(staticText[2]);
         compsToExperiment.add(initialSelect);
         compsToExperiment.add(currentData[2]);
@@ -122,6 +137,7 @@ public class GUIRunner extends JFrame {
         compsToExperiment.add(staticText[4]);
         compsToExperiment.add(safetySelect);
         compsToExperiment.add(currentData[4]);
+        */
         //Add controls to set up horizontal and vertical gaps
         controls.add(applyButton);
         controls.add(updateButton);
@@ -131,9 +147,11 @@ public class GUIRunner extends JFrame {
             public void actionPerformed(ActionEvent e){
                 JSONObject n = userPref.getJSONObject(currentCurrency);
                 n.put("type", currentType);
+                /*
                 n.put("initial", currentInit);
                 n.put("threshold", currentThreshold);
                 n.put("ditch", currentSafety);
+                */
                 userPref.put(currentCurrency, n);
             }
         });
@@ -150,9 +168,11 @@ public class GUIRunner extends JFrame {
         		updateWithCurrency(currentCurrency);
         		currentData[0].setText(currentCurrency);
         		currentData[1].setText(currentType);
+        		/*
         		currentData[2].setText("$" + df.format(currentInit));
         		currentData[3].setText("$" + df.format(currentThreshold));
         		currentData[4].setText("$" + df.format(currentSafety));
+        		*/
         	}
         });
         
@@ -163,6 +183,7 @@ public class GUIRunner extends JFrame {
         	}
         });
         
+        /*
         initialSelect.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
@@ -258,6 +279,7 @@ public class GUIRunner extends JFrame {
 			}
         	
         });
+        */
         pane.add(compsToExperiment, BorderLayout.NORTH);
         pane.add(new JSeparator(), BorderLayout.CENTER);
         pane.add(controls, BorderLayout.SOUTH);
